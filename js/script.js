@@ -17,7 +17,7 @@ const spriteWidth = 575
 // 5230px of height / 10 anitations or 10 rows = 523
 const spriteHeight = 523
 let frameX = 0
-let frameY = 0
+let frameY = 5
 let gameFrame = 0
 const staggerFrames = 5
 
@@ -39,7 +39,7 @@ function animate() {
   )
 
   if (gameFrame % staggerFrames == 0) {
-    if (frameX < 6) frameX++
+    if (frameX < 4) frameX++
     else frameX = 0
   }
 
