@@ -7,19 +7,79 @@ const playerImage = new Image()
 playerImage.src = 'shadow_dog.png'
 const spriteWidth = 575 // 6876px of width / 12 columns = 573
 const spriteHeight = 523 // 5230px of height / 10 animations or 10 rows = 523
-let frameX = 0
-let frameY = 0
+
 let gameFrame = 0
 const staggerFrames = 5
+const spriteAnimations = []
+const animationStates = [
+  {
+    name: 'idle',
+    frames: 7,
+  },
+  {
+    name: 'jump',
+    frames: 7,
+  },
+  {
+    name: 'fall',
+    frames: 7,
+  },
+  {
+    name: 'run',
+    frames: 9,
+  },
+  {
+    name: 'dizzy',
+    frames: 11,
+  },
+  {
+    name: 'sit',
+    frames: 5,
+  },
+  {
+    name: 'roll',
+    frames: 7,
+  },
+  {
+    name: 'bite',
+    frames: 7,
+  },
+  {
+    name: 'ko',
+    frames: 12,
+  },
+  {
+    name: 'getHit',
+    frames: 4,
+  },
+]
+
+animationStates.forEach((state, index) => {
+  let frames = {
+    loc: [],
+  }
+
+  for (let j = 0; j < state.frames; j++) {
+    let positionX = j * spriteWidth
+    let positionY = index * spriteHeight
+    frames.loc.push({ x: positionX, y: positionY })
+  }
+
+  spriteAnimations[state.name] = frames
+})
+console.log('spriteAnimations', spriteAnimations)
 
 function animate() {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
-  let position = Math.floor(gameFrame / staggerFrames) % 6
-  frameX = spriteWidth * position
+  let position =
+    Math.floor(gameFrame / staggerFrames) % spriteAnimations['idle'].loc.length
+  let frameX = spriteWidth * position
+  let frameY = spriteAnimations['idle'].loc[position].y
+
   ctx.drawImage(
     playerImage,
     frameX,
-    frameY * spriteHeight,
+    frameY,
     spriteWidth,
     spriteHeight,
     0,
@@ -34,3 +94,48 @@ function animate() {
 }
 
 animate()
+
+// let spriteAnimations = [
+//   "idle" = {
+//     width: 525,
+//     height: 523,
+//     loc: [
+//       { x: 0, y: 0 },
+//       { x: 575, y: 0 },
+//       { x: 1150, y: 0 },
+//       { x: 1725, y: 0 },
+//       { x: 2300, y: 0 },
+//       { x: 2875, y: 0 },
+//       { x: 3450, y: 0 },
+//     ],
+//   },
+// "jump" = {
+//     width: 120,
+//     height: 120,
+//     loc: [
+//       { x: 0, y: 0 },
+//       { x: 575, y: 0 },
+//       { x: 1150, y: 0 },
+//       { x: 1725, y: 0 },
+//       { x: 2300, y: 0 },
+//       { x: 2875, y: 0 },
+//       { x: 3450, y: 0 },
+//     ],
+//   },
+//   "run" = {
+//     width: 1200,
+//     height: 1250,
+//     loc: [
+//       {x:0, y:0},
+//       {x:0, y:0},
+//       {x:0, y:0},
+//       {x:0, y:0},
+//       {x:0, y:0},
+//       {x:0, y:0},
+//       {x:0, y:0}
+//     ]
+//   },
+// ]
+
+// // console.log('spriteAnimations["idle"]', spriteAnimations["idle"].loc[2].x) // 1150
+// // console.log('spriteAnimations["idle"]', spriteAnimations["idle"].loc.length) // 7
