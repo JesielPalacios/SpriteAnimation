@@ -10,7 +10,7 @@ const CANVAS_WIDTH = (canvas.width = 600)
 const CANVAS_HEIGHT = (canvas.height = 600)
 
 const playerImage = new Image()
-playerImage.src = '/shadow_dog.png'
+playerImage.src = 'shadow_dog.png'
 const spriteWidth = 575 // 6876px of width / 12 columns = 573
 const spriteHeight = 523 // 5230px of height / 10 animations or 10 rows = 523
 
