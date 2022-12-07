@@ -1,3 +1,9 @@
+let palyerState = 'run'
+const dropdown = document.getElementById('animations')
+dropdown.addEventListener('change', function (e) {
+  palyerState = e.target.value
+})
+
 const canvas = document.getElementById('canvas1')
 const ctx = canvas.getContext('2d')
 const CANVAS_WIDTH = (canvas.width = 600)
@@ -72,9 +78,10 @@ console.log('spriteAnimations', spriteAnimations)
 function animate() {
   ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
   let position =
-    Math.floor(gameFrame / staggerFrames) % spriteAnimations['idle'].loc.length
+    Math.floor(gameFrame / staggerFrames) %
+    spriteAnimations[palyerState].loc.length
   let frameX = spriteWidth * position
-  let frameY = spriteAnimations['idle'].loc[position].y
+  let frameY = spriteAnimations[palyerState].loc[position].y
 
   ctx.drawImage(
     playerImage,
